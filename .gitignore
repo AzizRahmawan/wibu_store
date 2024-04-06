@@ -1,0 +1,32 @@
+# Ignore file konfigurasi
+.env
+
+# Ignore file konfigurasi PHP
+php.ini
+
+# Ignore file log
+*.log
+error_log
+access_log
+
+# Ignore file cache
+.cache
+.cache/*
+!public/.cache/
+
+# Ignore direktori vendor (jika menggunakan Composer)
+vendor/
+
+# Ignore file database
+*.sqlite
+*.sqlite3
+*.sql
+
+# Ignore file sementara
+*.swp
+*~
+.DS_Store
+
+# Ignore file upload dan cache gambar
+public/uploads/
+public/cache/
