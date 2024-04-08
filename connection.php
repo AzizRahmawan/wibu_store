@@ -18,7 +18,9 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     // Mencetak pesan koneksi berhasil
-    echo "Koneksi berhasil";
+    if (php_sapi_name() === 'cli') {
+        echo "Koneksi berhasil\n";
+    } 
 } catch(PDOException $e) {
     echo "Koneksi gagal: " . $e->getMessage();
     die(); // Hentikan eksekusi jika koneksi gagal
