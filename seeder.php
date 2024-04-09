@@ -86,19 +86,19 @@ try {
         $conn->exec($sql);
         echo "Data produk berhasil dimasukkan.\n";
     }
-     
     
+      
     function seedUsers($conn) {
         $users = [
-            [1, 'John Doe', 'john@example.com', 'password123', '123 Main Street', '123456789'],
-            [2, 'Jane Doe', 'jane@example.com', 'password456', '456 Elm Street', '987654321'],
-            [3, 'Alice Smith', 'alice@example.com', 'password789', '789 Oak Street', '456789123'],
-            [4, 'Bob Johnson', 'bob@example.com', 'passwordabc', '321 Pine Street', '789123456'],
-            [5, 'Eve Wilson', 'eve@example.com', 'passworddef', '654 Maple Street', '321654987']
+            [1, 'John Doe', 'john@example.com', '12345678'],
+            [2, 'Jane Doe', 'jane@example.com', '12345678'],
+            [3, 'Alice Smith', 'alice@example.com', '12345678'],
+            [4, 'Bob Johnson', 'bob@example.com', '12345678'],
+            [5, 'Eve Wilson', 'eve@example.com', '12345678']
         ];
     
-        $sql = "INSERT INTO users (user_id, nama_pengguna, email, kata_sandi, alamat, nomor_telepon) VALUES ";
-        $sql .= "(?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO users (user_id, nama_pengguna, email, kata_sandi) VALUES ";
+        $sql .= "(?, ?, ?, ?)";
         
         $stmt = $conn->prepare($sql);
     
@@ -108,8 +108,13 @@ try {
     
         echo "Data pengguna berhasil dimasukkan.\n";
     }
-    
-      
+
+    function seedCarts($conn) {
+        // Data carts akan dibuat untuk setiap user yang ada
+        $sql = "INSERT INTO carts (user_id) SELECT user_id FROM users";
+        $conn->exec($sql);
+        echo "Data carts berhasil dimasukkan.\n";
+    }
 
     truncateOrderItems($conn);
     truncateCartItems($conn);
@@ -122,6 +127,7 @@ try {
     seedUsers($conn);
     seedCategories($conn); 
     seedProducts($conn);
+    seedCarts($conn); // Memanggil fungsi untuk menambahkan data carts
 
 } catch(PDOException $e) {
     echo "Koneksi gagal: " . $e->getMessage();
